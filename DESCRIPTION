@@ -1,0 +1,14 @@
+Package: varnish
+Title: For finishing tables
+Version: 0.0.0.9000
+Authors@R: 
+    person("Neil", "Wright", , "neil.wright@ndph.ox.ac.uk", role = c("aut", "cre"))
+Description: Convenience functions for working with tables.
+License: GPL (>= 3)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
+Imports: 
+    flextable,
+    magrittr,
+    officer
