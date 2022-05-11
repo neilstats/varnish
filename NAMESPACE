@@ -2,6 +2,7 @@
 
 export("%>%")
 export(add_footnote)
+export(add_headers)
 export(colwidths)
 export(marker)
 export(style_table)

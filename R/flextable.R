@@ -1,3 +1,27 @@
+
+#' Add header rows
+#'
+#' @param x A flextable
+#' @param headers A list of
+#'
+#' @return
+#' @export
+#'
+#' @examples
+add_headers <- function(x, v = NULL, c = NULL){
+  if (!is.list(v)) v <- list(v)
+  if (!is.list(c)) c <- list(c)
+  x <- flextable::delete_part(x)
+  for (i in 1:length(v)){
+    x <- flextable::add_header_row(x,
+                                   values = rev(v)[[i]],
+                                   colwidths = rev(c)[[i]])
+  }
+  x
+}
+
+
+
 #' Apply overall style to a flextable
 #'
 #' @param x A flextable
