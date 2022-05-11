@@ -1,0 +1,101 @@
+---
+title: "flextable"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{flextable}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(varnish)
+```
+
+# Example
+
+```{r}
+table_contents <- airquality[1:10,c(6, 1:4)]
+table_contents
+```
+
+## Add column headers
+The `add_headers()` function deletes the existing table header and then adds (multiple) column headers. It is a wrapper for `flextable::delete_part()` and `flextable::add_header_row()`.
+
+```{r}
+table_contents %>% 
+  flextable::flextable() %>% 
+  add_headers(v = list(c(NA, "Air quality"),
+                       c("Day", "Ozone", "Solar.R", "Wind", "Temp")),
+              c = list(c(1, 4), NULL))
+```
+
+## Apply style to a table
+The `style_table()` function is used to apply an overall design to a flextable. It is recommended to use `add_headers()` (to add column headers) before applying this function.
+
+```{r}
+table_contents %>% 
+  flextable::flextable() %>% 
+  flextable::delete_part() %>% 
+  add_headers(c("Day", "Ozone", "Solar.R", "Wind", "Temp")) %>% 
+  style_table()
+```
+
+## Underline header
+```{r}
+table_contents %>% 
+  flextable::flextable() %>% 
+  add_headers(v = list(c(NA, "Air quality"),
+                       c("Day", "Ozone", "Solar.R", "Wind", "Temp")),
+              c = list(c(1, 4), NULL)) %>% 
+  style_table() %>% 
+  underline_header(j = 2)
+```
+
+## Add footnotes
+```{r}
+table_contents %>% 
+  flextable::flextable() %>% 
+  flextable::delete_part() %>% 
+    flextable::add_header_row(values = c("Day", "Ozone", "Solar.R", "Wind", "Temp")) %>% 
+  flextable::add_header_row(values = c("", "Air quality"),
+                 colwidths = c(1, 4)) %>% 
+  style_table() %>% 
+  underline_header(j = 2) %>% 
+  add_footnote("Daily air quality measurements in New York, May 1973.")
+```
+
+```{r}
+table_contents %>% 
+  flextable::flextable() %>% 
+  flextable::delete_part() %>% 
+    flextable::add_header_row(values = c("Day", "Ozone", "Solar.R", "Wind", "Temp")) %>% 
+  flextable::add_header_row(values = c("", "Air quality"),
+                 colwidths = c(1, 4)) %>% 
+  style_table() %>% 
+  underline_header(j = 2) %>% 
+  add_footnote("Daily air quality measurements in New York, May 1973.") %>% 
+  add_footnote("\u00B0F",
+               i = 2, j = 5, part = "header",
+               symb = marker(1))
+```
+
+## Set widths of all columns
+```{r}
+table_contents %>% 
+  flextable::flextable() %>% 
+  flextable::delete_part() %>% 
+    flextable::add_header_row(values = c("Day", "Ozone", "Solar.R", "Wind", "Temp")) %>% 
+  flextable::add_header_row(values = c("", "Air quality"),
+                 colwidths = c(1, 4)) %>% 
+  style_table() %>% 
+  underline_header(j = 2) %>% 
+  add_footnote("Daily air quality measurements in New York, May 1973.") %>% 
+  colwidths(c(10, 23, 23, 23, 23))
+```
