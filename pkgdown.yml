@@ -1,0 +1,10 @@
+pandoc: 2.7.3
+pkgdown: 2.0.3
+pkgdown_sha: ~
+articles:
+  flextable: flextable.html
+last_built: 2022-05-11T12:34Z
+urls:
+  reference: https://neilstats.github.io/varnish/reference
+  article: https://neilstats.github.io/varnish/articles
+
