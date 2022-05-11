@@ -16,3 +16,5 @@ Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
+URL: https://neilstats.github.io/varnish, https://github.com/neilstats/varnish
+BugReports: https://github.com/neilstats/varnish/issues
