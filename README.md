@@ -16,4 +16,10 @@ This package is in early development.
 ## flextable
 
 The package initially contains functions for working with the
-[flextable](https://davidgohel.github.io/flextable/) package.
+[flextable](https://davidgohel.github.io/flextable/) package. The
+flextable package is used to create tables which can be embedded in R
+Markdown documents (for output to HTML, Word, PDF and PowerPoint
+documents) or directly in Word and PowerPoint documents using the
+[officer](https://ardata-fr.github.io/officeverse) package. The package
+is particularly effective for creating custom, high quality tables in
+Word documents.

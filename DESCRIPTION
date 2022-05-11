@@ -12,3 +12,7 @@ Imports:
     flextable,
     magrittr,
     officer
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
