@@ -1,4 +1,34 @@
 
+#' Varnish a table
+#'
+#' @param x
+#' @param v
+#' @param c
+#' @param underline_i
+#' @param underline_j
+#' @param widths
+#' @param unit
+#'
+#' @return
+#' @export
+#'
+#' @examples
+varnish <- function(x,
+                    v = NULL,
+                    c = NULL,
+                    underline_i = 1,
+                    underline_j = NULL,
+                    widths = NULL,
+                    unit = "mm"){
+  x %>%
+    add_headers(v = v, c = c) %>%
+    style_table() %>%
+    underline_header(i = underline_i, j = underline_j) %>%
+    colwidths(w = widths,
+              unit = unit)
+}
+
+
 #' Add header rows
 #'
 #' @param x A flextable
@@ -57,6 +87,7 @@ style_table <- function(x){
 underline_header <- function(x,
                              i = 1,
                              j){
+  if (is.null(j)) return(x)
   flextable::style(x,
                    i = i, j = j,
                    part = "header",
@@ -140,6 +171,8 @@ marker <- function(x = "asterisk"){
 colwidths <- function(x,
                       w,
                       unit = "mm"){
-  for (i in 1:length(w)){x <- flextable::width(x, j = i, width = w[[i]], unit = unit)}
+  if (!is.null(w)) {
+    for (i in 1:length(w)){x <- flextable::width(x, j = i, width = w[[i]], unit = unit)}
+  }
   x
 }
