@@ -3,7 +3,7 @@ pkgdown: 2.0.3
 pkgdown_sha: ~
 articles:
   flextable: flextable.html
-last_built: 2022-05-22T22:28Z
+last_built: 2022-05-27T17:21Z
 urls:
   reference: https://neilstats.github.io/varnish/reference
   article: https://neilstats.github.io/varnish/articles
