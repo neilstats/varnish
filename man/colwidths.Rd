@@ -4,12 +4,12 @@
 \alias{colwidths}
 \title{Control all column widths in a flextable}
 \usage{
-colwidths(x, w, unit = "mm")
+colwidths(x, widths, unit = "mm")
 }
 \arguments{
 \item{x}{A flextable}
 
-\item{w}{A numeric vector of widths}
+\item{widths}{A numeric vector of widths}
 
 \item{unit}{Unit for widths, one of "in", "cm", "mm" (Default: "mm")}
 }

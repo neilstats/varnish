@@ -2,8 +2,8 @@
 #' Varnish a table
 #'
 #' @param x
-#' @param v
-#' @param c
+#' @param headers
+#' @param colspan
 #' @param underline_i
 #' @param underline_j
 #' @param widths
@@ -14,38 +14,40 @@
 #'
 #' @examples
 varnish <- function(x,
-                    v = NULL,
-                    c = NULL,
-                    underline_i = 1,
-                    underline_j = NULL,
-                    widths = NULL,
-                    unit = "mm"){
+                    headers      = NULL,
+                    colspan      = NULL,
+                    underline_i  = 1,
+                    underline_j  = NULL,
+                    widths       = NULL,
+                    unit         = "mm"){
   x %>%
-    add_headers(v = v, c = c) %>%
+    add_headers(headers = headers,
+                colspan = colspan) %>%
     style_table() %>%
-    underline_header(i = underline_i, j = underline_j) %>%
-    colwidths(w = widths,
-              unit = unit)
+    underline_header(i = underline_i,
+                     j = underline_j) %>%
+    colwidths(widths = widths,
+              unit   = unit)
 }
 
 
 #' Add header rows
 #'
 #' @param x A flextable
-#' @param headers A list of
-#'
+#' @param headers A list of character vectors (or a single character vector).
+#' @param colspan A list of numeric vectors (or a single numeric vector).
 #' @return
 #' @export
 #'
 #' @examples
-add_headers <- function(x, v = NULL, c = NULL){
-  if (!is.list(v)) v <- list(v)
-  if (!is.list(c)) c <- list(c)
+add_headers <- function(x, headers = NULL, colspan = NULL){
+  if (!is.list(headers)) headers <- list(headers)
+  if (!is.list(colspan)) colspan <- list(colspan)
   x <- flextable::delete_part(x)
-  for (i in 1:length(v)){
+  for (i in 1:length(headers)){
     x <- flextable::add_header_row(x,
-                                   values = rev(v)[[i]],
-                                   colwidths = rev(c)[[i]])
+                                   values = rev(headers)[[i]],
+                                   colwidths = rev(colspan)[[i]])
   }
   x
 }
@@ -69,7 +71,11 @@ style_table <- function(x){
     flextable::bold(part = "header") %>%
     flextable::align(align = "right", part = "all") %>%
     flextable::align(j = 1, align = "left", part = "all") %>%
-    flextable::padding(padding.left = 4, padding.right = 4, padding.top = 1, padding.bottom = 1, part = "all")
+    flextable::padding(padding.left = 4,
+                       padding.right = 4,
+                       padding.top = 1,
+                       padding.bottom = 1,
+                       part = "all")
 }
 
 
@@ -91,13 +97,15 @@ underline_header <- function(x,
   flextable::style(x,
                    i = i, j = j,
                    part = "header",
-                   pr_p = officer::fp_par(border.bottom = officer::fp_border(),
-                                          text.align = "center",
+                   pr_p = officer::fp_par(border.bottom  = officer::fp_border(),
+                                          text.align     = "center",
                                           padding.right  = 4,
                                           padding.left   = 4,
                                           padding.top    = 1,
                                           padding.bottom = 1)) %>%
-    flextable::align(i = i, j = j, align = "center", part = "header")
+    flextable::align(i = i, j = j,
+                     align = "center",
+                     part = "header")
 }
 
 
@@ -118,22 +126,22 @@ underline_header <- function(x,
 #'
 #' @examples
 add_footnote <- function(
-  x,
-  str,
-  symb = "",
-  i = NULL,
-  j = NULL,
-  size = 8,
-  part = "body",
-  inline = TRUE,
-  sep = "\n"
-  ) {
+    x,
+    str,
+    symb = "",
+    i = NULL,
+    j = NULL,
+    size = 8,
+    part = "body",
+    inline = TRUE,
+    sep = "\n"
+) {
   flextable::footnote(x,
                       i = i,
                       j = j,
                       value = flextable::as_paragraph(
                         flextable::as_chunk(paste0(" ", str),
-                                 props = officer::fp_text(font.size = size))),
+                                            props = officer::fp_text(font.size = size))),
                       ref_symbols = symb,
                       part        = part,
                       inline      = inline,
@@ -154,14 +162,14 @@ marker <- function(x = "asterisk"){
          dagger = "\u2020",
          ddagger = "\u2021",
          silcrow = "\u00A7"
-         )
+  )
 }
 
 
 #' Control all column widths in a flextable
 #'
 #' @param x A flextable
-#' @param w A numeric vector of widths
+#' @param widths A numeric vector of widths
 #' @param unit Unit for widths, one of "in", "cm", "mm" (Default: "mm")
 #'
 #' @return A flextable.
@@ -169,10 +177,15 @@ marker <- function(x = "asterisk"){
 #'
 #' @examples
 colwidths <- function(x,
-                      w,
+                      widths,
                       unit = "mm"){
-  if (!is.null(w)) {
-    for (i in 1:length(w)){x <- flextable::width(x, j = i, width = w[[i]], unit = unit)}
+  if (!is.null(widths)) {
+    for (j in 1:length(widths)){
+      x <- flextable::width(x,
+                            j = j,
+                            width = widths[[j]],
+                            unit = unit)
+      }
   }
   x
 }

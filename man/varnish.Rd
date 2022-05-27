@@ -6,8 +6,8 @@
 \usage{
 varnish(
   x,
-  v = NULL,
-  c = NULL,
+  headers = NULL,
+  colspan = NULL,
   underline_i = 1,
   underline_j = NULL,
   widths = NULL,
@@ -16,9 +16,6 @@ varnish(
 }
 \arguments{
 \item{unit}{}
-}
-\value{
-
 }
 \description{
 Varnish a table

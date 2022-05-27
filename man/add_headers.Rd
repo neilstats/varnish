@@ -4,15 +4,14 @@
 \alias{add_headers}
 \title{Add header rows}
 \usage{
-add_headers(x, v = NULL, c = NULL)
+add_headers(x, headers = NULL, colspan = NULL)
 }
 \arguments{
 \item{x}{A flextable}
 
-\item{headers}{A list of}
-}
-\value{
+\item{headers}{A list of character vectors (or a single character vector).}
 
+\item{colspan}{A list of numeric vectors (or a single numeric vector).}
 }
 \description{
 Add header rows

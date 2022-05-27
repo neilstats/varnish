@@ -35,22 +35,23 @@ The `varnish()` function is a wrapper for several functions, combining several s
 ```{r}
 table_contents %>% 
   flextable::flextable() %>% 
-  varnish(v           = list(c(NA, "Air quality"),
-                             c("Day", "Ozone", "Solar.R", "Wind", "Temp")),
-          c           = list(c(1, 4), NULL),
+  varnish(headers     = list(c("", "Air quality"),
+                             c("Day", "Ozone", "Solar", "Wind", "Temp")),
+          colspan     = list(c(1, 4),
+                             NULL),
           underline_j = 2,
           widths      = c(10, 23, 23, 23, 23))
 ```
-              
+
 ### Add column headers
 The `add_headers()` function deletes the existing table header and then adds (multiple) column headers. It is a wrapper for `flextable::delete_part()` and `flextable::add_header_row()`.
 
 ```{r}
 table_contents %>% 
   flextable::flextable() %>% 
-  add_headers(v = list(c(NA, "Air quality"),
-                       c("Day", "Ozone", "Solar.R", "Wind", "Temp")),
-              c = list(c(1, 4), NULL))
+  add_headers(headers = list(c(NA, "Air quality"),
+                             c("Day", "Ozone", "Solar", "Wind", "Temp")),
+              colspan = list(c(1, 4), NULL))
 ```
 
 ### Apply style to a table
@@ -59,8 +60,7 @@ The `style_table()` function is used to apply an overall design to a flextable. 
 ```{r}
 table_contents %>% 
   flextable::flextable() %>% 
-  flextable::delete_part() %>% 
-  add_headers(c("Day", "Ozone", "Solar.R", "Wind", "Temp")) %>% 
+  add_headers(c("Day", "Ozone", "Solar", "Wind", "Temp")) %>% 
   style_table()
 ```
 
@@ -68,9 +68,9 @@ table_contents %>%
 ```{r}
 table_contents %>% 
   flextable::flextable() %>% 
-  add_headers(v = list(c(NA, "Air quality"),
-                       c("Day", "Ozone", "Solar.R", "Wind", "Temp")),
-              c = list(c(1, 4), NULL)) %>% 
+  add_headers(headers = list(c(NA, "Air quality"),
+                             c("Day", "Ozone", "Solar", "Wind", "Temp")),
+              colspan = list(c(1, 4), NULL)) %>% 
   style_table() %>% 
   underline_header(j = 2)
 ```
@@ -79,10 +79,9 @@ table_contents %>%
 ```{r}
 table_contents %>% 
   flextable::flextable() %>% 
-  flextable::delete_part() %>% 
-    flextable::add_header_row(values = c("Day", "Ozone", "Solar.R", "Wind", "Temp")) %>% 
-  flextable::add_header_row(values = c("", "Air quality"),
-                 colwidths = c(1, 4)) %>% 
+  add_headers(headers = list(c(NA, "Air quality"),
+                             c("Day", "Ozone", "Solar", "Wind", "Temp")),
+              colspan = list(c(1, 4), NULL)) %>% 
   style_table() %>% 
   underline_header(j = 2) %>% 
   colwidths(c(10, 23, 23, 23, 23))
@@ -93,10 +92,9 @@ table_contents %>%
 ```{r}
 table_contents %>% 
   flextable::flextable() %>% 
-  flextable::delete_part() %>% 
-    flextable::add_header_row(values = c("Day", "Ozone", "Solar.R", "Wind", "Temp")) %>% 
-  flextable::add_header_row(values = c("", "Air quality"),
-                 colwidths = c(1, 4)) %>% 
+  add_headers(headers = list(c(NA, "Air quality"),
+                             c("Day", "Ozone", "Solar", "Wind", "Temp")),
+              colspan = list(c(1, 4), NULL)) %>% 
   style_table() %>% 
   underline_header(j = 2) %>% 
   add_footnote("Daily air quality measurements in New York, May 1973.")
@@ -105,10 +103,9 @@ table_contents %>%
 ```{r}
 table_contents %>% 
   flextable::flextable() %>% 
-  flextable::delete_part() %>% 
-    flextable::add_header_row(values = c("Day", "Ozone", "Solar.R", "Wind", "Temp")) %>% 
-  flextable::add_header_row(values = c("", "Air quality"),
-                 colwidths = c(1, 4)) %>% 
+  add_headers(headers = list(c(NA, "Air quality"),
+                             c("Day", "Ozone", "Solar", "Wind", "Temp")),
+              colspan = list(c(1, 4), NULL)) %>% 
   style_table() %>% 
   underline_header(j = 2) %>% 
   add_footnote("Daily air quality measurements in New York, May 1973.") %>% 
